@@ -1,26 +1,26 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useRef, useState } from 'react';
+import { Toolbar } from './components/Toolbar';
+import { Layer } from './components/Layer';
+import { ConnectionManager } from './modules/ConnectionManager';
+import { Selection } from './components/Selection';
+import { SelectedShapes } from './modules/SelectedShapes';
+import { Shape } from './modules/Shape';
+import { ShapesProvider } from './context/ShapesContext';
 
-function App() {
+const App: React.FC = () => {
+  const connectionManager = useRef(new ConnectionManager());
+
+  const handleShapeDragStart = (shapeType: string) => {
+
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ShapesProvider>
+      <Selection />
+      <Toolbar onShapeDragStart={handleShapeDragStart} />
+      <Layer manager={connectionManager} width={window.innerWidth} height={window.innerHeight} />
+    </ShapesProvider>
   );
-}
+};
 
 export default App;
